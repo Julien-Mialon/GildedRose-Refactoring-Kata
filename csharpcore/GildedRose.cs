@@ -12,9 +12,35 @@ namespace csharpcore
 
         public void UpdateQuality()
         {
-            foreach (var item in _items)
+            foreach (Item item in _items)
             {
-                if (!item.IsAgedBrie() && !item.IsBackstagePasses())
+                if (item.IsAgedBrie() || item.IsBackstagePasses())
+                {
+                    if (item.IsNotMaxQuality())
+                    {
+                        item.Quality = item.Quality + 1;
+
+                        if (item.IsBackstagePasses())
+                        {
+                            if (item.SellIn < 11)
+                            {
+                                if (item.IsNotMaxQuality())
+                                {
+                                    item.Quality = item.Quality + 1;
+                                }
+                            }
+
+                            if (item.SellIn < 6)
+                            {
+                                if (item.IsNotMaxQuality())
+                                {
+                                    item.Quality = item.Quality + 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
                 {
                     if (item.Quality > 0)
                     {
@@ -24,39 +50,13 @@ namespace csharpcore
                         }
                     }
                 }
-                else
-                {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-
-                        if (item.IsBackstagePasses())
-                        {
-                            if (item.SellIn < 11)
-                            {
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-
-                            if (item.SellIn < 6)
-                            {
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
 
                 if (!item.IsLegendary())
                 {
                     item.SellIn = item.SellIn - 1;
                 }
 
-                if (item.SellIn < 0)
+                if (item.IsExpired())
                 {
                     if (!item.IsAgedBrie())
                     {
@@ -77,7 +77,7 @@ namespace csharpcore
                     }
                     else
                     {
-                        if (item.Quality < 50)
+                        if (item.IsNotMaxQuality())
                         {
                             item.Quality = item.Quality + 1;
                         }
