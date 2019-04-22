@@ -32,14 +32,15 @@ namespace csharpcore
                         }
                     }
                 }
+                else if (item.IsLegendary())
+                {
+                    //do nothing
+                }
                 else
                 {
                     if (item.Quality > 0)
                     {
-                        if (!item.IsLegendary())
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
+                        item.Quality = item.Quality - 1;
                     }
                 }
 
@@ -50,26 +51,24 @@ namespace csharpcore
 
                 if (item.IsExpired())
                 {
-                    if (!item.IsAgedBrie())
+                    if (item.IsAgedBrie())
                     {
-                        if (!item.IsBackstagePasses())
-                        {
-                            if (item.Quality > 0)
-                            {
-                                if (!item.IsLegendary())
-                                {
-                                    item.Quality = item.Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            item.Quality = item.Quality - item.Quality;
-                        }
+                        item.IncreaseQualityIfNotMax();
+                    }
+                    else if (item.IsBackstagePasses())
+                    {
+                        item.Quality = item.Quality - item.Quality;
+                    }
+                    else if (item.IsLegendary())
+                    {
+                        //do nothing
                     }
                     else
                     {
-                        item.IncreaseQualityIfNotMax();
+                        if (item.Quality > 0)
+                        {
+                            item.Quality = item.Quality - 1;
+                        }
                     }
                 }
             }
