@@ -22,7 +22,7 @@ namespace csharpcore
             var outputLines = output.Split('\n');
             for(var i = 0; i<Math.Min(lines.Length, outputLines.Length); i++) 
             {
-                Assert.Equal(lines[i], outputLines[i]);
+                Assert.Equal(lines[i], outputLines[i].TrimEnd('\r'));
             }
         }
     }
