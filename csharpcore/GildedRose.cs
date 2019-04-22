@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace csharpcore
 {
@@ -20,45 +21,59 @@ namespace csharpcore
                     continue;
                 }
 
-                
                 item.SellIn--;
-                
+
                 if (item.IsAgedBrie())
                 {
-                    item.IncreaseQualityIfNotMax();
-                    if (item.IsExpired())
-                    {
-                        item.IncreaseQualityIfNotMax();
-                    }
+                    UpdateQualityForAgedBrie(item);
                 }
                 else if (item.IsBackstagePasses())
                 {
-                    if (item.IsExpired())
-                    {
-                        item.Quality = 0;
-                    }
-                    else
-                    {
-                        item.IncreaseQualityIfNotMax();
-
-                        if (item.SellIn < 10)
-                        {
-                            item.IncreaseQualityIfNotMax();
-                        }
-
-                        if (item.SellIn < 5)
-                        {
-                            item.IncreaseQualityIfNotMax();
-                        }
-                    }
+                    UpdateQualityForBackstagePasses(item);
                 }
                 else
                 {
-                    item.DecreaseQualityIfNotMin();
-                    if (item.IsExpired())
+                    UpdateQualityForNormalItem(item);
+                }
+            }
+
+            void UpdateQualityForAgedBrie(Item item)
+            {
+                item.IncreaseQualityIfNotMax();
+                if (item.IsExpired())
+                {
+                    item.IncreaseQualityIfNotMax();
+                }
+            }
+
+            void UpdateQualityForBackstagePasses(Item item)
+            {
+                if (item.IsExpired())
+                {
+                    item.Quality = 0;
+                }
+                else
+                {
+                    item.IncreaseQualityIfNotMax();
+
+                    if (item.SellIn < 10)
                     {
-                        item.DecreaseQualityIfNotMin();
+                        item.IncreaseQualityIfNotMax();
                     }
+
+                    if (item.SellIn < 5)
+                    {
+                        item.IncreaseQualityIfNotMax();
+                    }
+                }
+            }
+
+            void UpdateQualityForNormalItem(Item item)
+            {
+                item.DecreaseQualityIfNotMin();
+                if (item.IsExpired())
+                {
+                    item.DecreaseQualityIfNotMin();
                 }
             }
         }
