@@ -44,10 +44,10 @@ namespace csharpcore
             return ItemType.Normal;
         }
 
-        public static bool IsNormalItem(this string name) => name.GetItemType() == ItemType.Normal;
-        public static bool IsAgedBrieItem(this string name) => name.GetItemType() == ItemType.AgedBrie;
-        public static bool IsLegendaryItem(this string name) => name.GetItemType() == ItemType.Legendary;
-        public static bool IsBackstagePassesItem(this string name) => name.GetItemType() == ItemType.BackstagePasses;
-        public static bool IsConjuredItem(this string name) => name.GetItemType() == ItemType.Conjured;
+        public static bool IsNormal(this Item item) => item.Name.GetItemType() == ItemType.Normal;
+        public static bool IsAgedBrie(this Item item) => item.Name.GetItemType() == ItemType.AgedBrie;
+        public static bool IsLegendary(this Item item) => item.Name.GetItemType() == ItemType.Legendary;
+        public static bool IsBackstagePasses(this Item item) => item.Name.GetItemType() == ItemType.BackstagePasses;
+        public static bool IsConjured(this Item item) => item.Name.GetItemType() == ItemType.Conjured;
     }
 }
