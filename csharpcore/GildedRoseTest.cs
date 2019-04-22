@@ -278,6 +278,36 @@ namespace csharpcore
             Assert.Equal(0, item.Quality);
         }
         
+        [Fact]
+        public void GivenConjuredItem_CheckThatQualityDecreaseByTwoBeforeExpire()
+        {
+            Item item = new Item
+            {
+                Name = "Conjured mana charge",
+                SellIn = 100,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(38, item.Quality);
+        }
+        
+        [Fact]
+        public void GivenConjuredItem_CheckThatQualityDecreaseByFourAfterExpire()
+        {
+            Item item = new Item
+            {
+                Name = "Conjured mana charge",
+                SellIn = 0,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(36, item.Quality);
+        }
+        
         private void RunForItem(Item item)
         {
             GildedRose app = new GildedRose(new List<Item> {item});
