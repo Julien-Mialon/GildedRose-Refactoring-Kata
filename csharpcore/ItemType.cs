@@ -1,5 +1,3 @@
-using System;
-
 namespace csharpcore
 {
     public enum ItemType
@@ -23,7 +21,27 @@ namespace csharpcore
     {
         public static ItemType GetItemType(this string name)
         {
-            throw new NotImplementedException();
+            if (name == ItemTypeConstants.AGED_BRIE_NAME)
+            {
+                return ItemType.AgedBrie;
+            }
+
+            if (name == ItemTypeConstants.LEGENDARY_SULFURAS_NAME)
+            {
+                return ItemType.Legendary;
+            }
+
+            if (name.StartsWith(ItemTypeConstants.BACKSTAGE_PASSES_PREFIX))
+            {
+                return ItemType.BackstagePasses;
+            }
+
+            if (name.StartsWith(ItemTypeConstants.CONJURED_PREFIX))
+            {
+                return ItemType.Conjured;
+            }
+
+            return ItemType.Normal;
         }
 
         public static bool IsNormalItem(this string name) => name.GetItemType() == ItemType.Normal;
