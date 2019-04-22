@@ -150,6 +150,73 @@ namespace csharpcore
             
             Assert.Equal(50, item.Quality);
         }
+
+        [Fact]
+        public void GivenLegendaryItem_CheckThatQualityNeverDecrease()
+        {
+            Item item = new Item
+            {
+                Name = "Sulfuras, Hand of Ragnaros",
+                SellIn = 10,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(40, item.Quality);
+            
+            item = new Item
+            {
+                Name = "Sulfuras, Hand of Ragnaros",
+                SellIn = -1,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(40, item.Quality);
+        }
+        
+        [Fact]
+        public void GivenLegendaryItem_CheckThatSellInNeverDecrease()
+        {
+            Item item = new Item
+            {
+                Name = "Sulfuras, Hand of Ragnaros",
+                SellIn = 10,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(10, item.SellIn);
+            
+            item = new Item
+            {
+                Name = "Sulfuras, Hand of Ragnaros",
+                SellIn = -1,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(-1, item.SellIn);
+        }
+        
+        [Fact]
+        public void GivenLegendaryItem_CheckThatQualityCanBeMoreThan50()
+        {
+            Item item = new Item
+            {
+                Name = "Sulfuras, Hand of Ragnaros",
+                SellIn = 10,
+                Quality = 80
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(80, item.Quality);
+        }
         
         private void RunForItem(Item item)
         {
