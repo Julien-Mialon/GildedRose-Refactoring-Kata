@@ -33,21 +33,23 @@ namespace csharpcore
                 }
                 else if (item.IsBackstagePasses())
                 {
-                    item.IncreaseQualityIfNotMax();
-
-                    if (item.SellIn < 10)
-                    {
-                        item.IncreaseQualityIfNotMax();
-                    }
-
-                    if (item.SellIn < 5)
-                    {
-                        item.IncreaseQualityIfNotMax();
-                    }
-                    
                     if (item.IsExpired())
                     {
                         item.Quality = 0;
+                    }
+                    else
+                    {
+                        item.IncreaseQualityIfNotMax();
+
+                        if (item.SellIn < 10)
+                        {
+                            item.IncreaseQualityIfNotMax();
+                        }
+
+                        if (item.SellIn < 5)
+                        {
+                            item.IncreaseQualityIfNotMax();
+                        }
                     }
                 }
                 else
