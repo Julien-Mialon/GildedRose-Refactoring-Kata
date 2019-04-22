@@ -39,10 +39,7 @@ namespace csharpcore
                 }
                 else
                 {
-                    if (item.Quality > 0)
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
+                    item.DecreaseQualityIfNotMin();
                 }
 
                 item.SellIn = item.SellIn - 1;
@@ -56,14 +53,11 @@ namespace csharpcore
                     }
                     else if (item.IsBackstagePasses())
                     {
-                        item.Quality = item.Quality - item.Quality;
+                        item.Quality = 0;
                     }
                     else
                     {
-                        if (item.Quality > 0)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
+                        item.DecreaseQualityIfNotMin();
                     }
                 }
             }

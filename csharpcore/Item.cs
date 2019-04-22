@@ -14,16 +14,19 @@
             return item.SellIn < 0;
         }
 
-        public static bool IsNotMaxQuality(this Item item)
-        {
-            return item.Quality < 50;
-        }
-
         public static void IncreaseQualityIfNotMax(this Item item)
         {
-            if (item.IsNotMaxQuality())
+            if (item.Quality < 50)
             {
                 item.Quality++;
+            }
+        }
+
+        public static void DecreaseQualityIfNotMin(this Item item)
+        {
+            if (item.Quality > 0)
+            {
+                item.Quality--;
             }
         }
     }
