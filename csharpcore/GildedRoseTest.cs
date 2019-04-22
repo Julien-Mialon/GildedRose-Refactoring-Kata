@@ -94,6 +94,62 @@ namespace csharpcore
             
             Assert.Equal(-1, item.SellIn);
         }
+
+        [Fact]
+        public void GivenAgedBrie_CheckThatQualityIncreaseByOneBeforeSellDate()
+        {
+            Item item = new Item
+            {
+                Name = "Aged Brie",
+                SellIn = 10,
+                Quality = 10
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(11, item.Quality);
+        }
+        
+        [Fact]
+        public void GivenAgedBrie_CheckThatQualityIncreaseByTwoAfterSellDate()
+        {
+            Item item = new Item
+            {
+                Name = "Aged Brie",
+                SellIn = 0,
+                Quality = 10
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(12, item.Quality);
+        }
+        
+        [Fact]
+        public void GivenAgedBrie_CheckThatQualityDoNotIncreaseAbove50()
+        {
+            Item item = new Item
+            {
+                Name = "Aged Brie",
+                SellIn = 0,
+                Quality = 50
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(50, item.Quality);
+            
+            item = new Item
+            {
+                Name = "Aged Brie",
+                SellIn = 10,
+                Quality = 50
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(50, item.Quality);
+        }
         
         private void RunForItem(Item item)
         {
