@@ -14,19 +14,21 @@
             return item.SellIn < 0;
         }
 
-        public static void IncreaseQualityIfNotMax(this Item item)
+        public static void IncreaseQualityBy(this Item item, int count)
         {
-            if (item.Quality < 50)
+            item.Quality += count;
+            if (item.Quality > 50)
             {
-                item.Quality++;
+                item.Quality = 50;
             }
         }
 
-        public static void DecreaseQualityIfNotMin(this Item item)
+        public static void DecreaseQualityBy(this Item item, int count)
         {
-            if (item.Quality > 0)
+            item.Quality -= count;
+            if (item.Quality < 0)
             {
-                item.Quality--;
+                item.Quality = 0;
             }
         }
     }

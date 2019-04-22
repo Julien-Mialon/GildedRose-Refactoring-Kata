@@ -40,56 +40,61 @@ namespace csharpcore
                     UpdateQualityForNormalItem(item);
                 }
             }
+        }
 
-            void UpdateQualityForAgedBrie(Item item)
+        private static void UpdateQualityForAgedBrie(Item item)
+        {
+            if (item.IsExpired())
             {
-                item.IncreaseQualityIfNotMax();
-                if (item.IsExpired())
-                {
-                    item.IncreaseQualityIfNotMax();
-                }
+                item.IncreaseQualityBy(2);
             }
-
-            void UpdateQualityForBackstagePasses(Item item)
+            else
             {
-                if (item.IsExpired())
-                {
-                    item.Quality = 0;
-                }
-                else
-                {
-                    item.IncreaseQualityIfNotMax();
-
-                    if (item.SellIn < 10)
-                    {
-                        item.IncreaseQualityIfNotMax();
-                    }
-
-                    if (item.SellIn < 5)
-                    {
-                        item.IncreaseQualityIfNotMax();
-                    }
-                }
+                item.IncreaseQualityBy(1);
             }
+        }
 
-            void UpdateQualityForConjuredItem(Item item)
+        private static void UpdateQualityForBackstagePasses(Item item)
+        {
+            if (item.IsExpired())
             {
-                item.DecreaseQualityIfNotMin();
-                item.DecreaseQualityIfNotMin();
-                if (item.IsExpired())
-                {
-                    item.DecreaseQualityIfNotMin();
-                    item.DecreaseQualityIfNotMin();
-                }
+                item.Quality = 0;
             }
-
-            void UpdateQualityForNormalItem(Item item)
+            else if (item.SellIn < 5)
             {
-                item.DecreaseQualityIfNotMin();
-                if (item.IsExpired())
-                {
-                    item.DecreaseQualityIfNotMin();
-                }
+                item.IncreaseQualityBy(3);
+            }
+            else if (item.SellIn < 10)
+            {
+                item.IncreaseQualityBy(2);
+            }
+            else
+            {
+                item.IncreaseQualityBy(1);
+            }
+        }
+
+        private static void UpdateQualityForConjuredItem(Item item)
+        {
+            if (item.IsExpired())
+            {
+                item.DecreaseQualityBy(4);
+            }
+            else
+            {
+                item.DecreaseQualityBy(2);
+            }
+        }
+
+        private static void UpdateQualityForNormalItem(Item item)
+        {
+            if (item.IsExpired())
+            {
+                item.DecreaseQualityBy(2);
+            }
+            else
+            {
+                item.DecreaseQualityBy(1);
             }
         }
     }
