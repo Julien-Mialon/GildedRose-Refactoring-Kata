@@ -31,6 +31,10 @@ namespace csharpcore
                 {
                     UpdateQualityForBackstagePasses(item);
                 }
+                else if (item.IsConjured())
+                {
+                    UpdateQualityForConjuredItem(item);
+                }
                 else
                 {
                     UpdateQualityForNormalItem(item);
@@ -65,6 +69,17 @@ namespace csharpcore
                     {
                         item.IncreaseQualityIfNotMax();
                     }
+                }
+            }
+
+            void UpdateQualityForConjuredItem(Item item)
+            {
+                item.DecreaseQualityIfNotMin();
+                item.DecreaseQualityIfNotMin();
+                if (item.IsExpired())
+                {
+                    item.DecreaseQualityIfNotMin();
+                    item.DecreaseQualityIfNotMin();
                 }
             }
 
