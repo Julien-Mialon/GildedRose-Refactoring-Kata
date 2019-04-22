@@ -218,6 +218,66 @@ namespace csharpcore
             Assert.Equal(80, item.Quality);
         }
         
+        [Fact]
+        public void GivenBackstagePasses_WhenSellInDateIsAbove10_CheckThatQualityIncreaseByOne()
+        {
+            Item item = new Item
+            {
+                Name = "Backstage passes to a TAFKAL80ETC concert",
+                SellIn = 20,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(41, item.Quality);
+        }
+        
+        [Fact]
+        public void GivenBackstagePasses_WhenSellInDateIsIn10Days_CheckThatQualityIncreaseByTwo()
+        {
+            Item item = new Item
+            {
+                Name = "Backstage passes to a TAFKAL80ETC concert",
+                SellIn = 10,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(42, item.Quality);
+        }
+        
+        [Fact]
+        public void GivenBackstagePasses_WhenSellInDateIsIn5Days_CheckThatQualityIncreaseByThree()
+        {
+            Item item = new Item
+            {
+                Name = "Backstage passes to a TAFKAL80ETC concert",
+                SellIn = 5,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(43, item.Quality);
+        }
+        
+        [Fact]
+        public void GivenBackstagePasses_WhenSellInDateIsPassed_CheckThatQualityIsSetToZero()
+        {
+            Item item = new Item
+            {
+                Name = "Backstage passes to a TAFKAL80ETC concert",
+                SellIn = 0,
+                Quality = 40
+            };
+
+            RunForItem(item);
+            
+            Assert.Equal(0, item.Quality);
+        }
+        
         private void RunForItem(Item item)
         {
             GildedRose app = new GildedRose(new List<Item> {item});
