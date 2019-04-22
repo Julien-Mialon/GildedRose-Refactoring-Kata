@@ -20,21 +20,22 @@ namespace csharpcore
                     continue;
                 }
 
-                if (item.IsAgedBrie() || item.IsBackstagePasses())
+                if (item.IsAgedBrie())
+                {
+                    item.IncreaseQualityIfNotMax();
+                }
+                else if (item.IsBackstagePasses())
                 {
                     item.IncreaseQualityIfNotMax();
 
-                    if (item.IsBackstagePasses())
+                    if (item.SellIn < 11)
                     {
-                        if (item.SellIn < 11)
-                        {
-                            item.IncreaseQualityIfNotMax();
-                        }
+                        item.IncreaseQualityIfNotMax();
+                    }
 
-                        if (item.SellIn < 6)
-                        {
-                            item.IncreaseQualityIfNotMax();
-                        }
+                    if (item.SellIn < 6)
+                    {
+                        item.IncreaseQualityIfNotMax();
                     }
                 }
                 else
