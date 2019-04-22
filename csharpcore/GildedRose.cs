@@ -20,43 +20,40 @@ namespace csharpcore
                     continue;
                 }
 
+                
+                item.SellIn--;
+                
                 if (item.IsAgedBrie())
                 {
                     item.IncreaseQualityIfNotMax();
+                    if (item.IsExpired())
+                    {
+                        item.IncreaseQualityIfNotMax();
+                    }
                 }
                 else if (item.IsBackstagePasses())
                 {
                     item.IncreaseQualityIfNotMax();
 
-                    if (item.SellIn < 11)
+                    if (item.SellIn < 10)
                     {
                         item.IncreaseQualityIfNotMax();
                     }
 
-                    if (item.SellIn < 6)
+                    if (item.SellIn < 5)
                     {
                         item.IncreaseQualityIfNotMax();
+                    }
+                    
+                    if (item.IsExpired())
+                    {
+                        item.Quality = 0;
                     }
                 }
                 else
                 {
                     item.DecreaseQualityIfNotMin();
-                }
-
-                item.SellIn = item.SellIn - 1;
-
-
-                if (item.IsExpired())
-                {
-                    if (item.IsAgedBrie())
-                    {
-                        item.IncreaseQualityIfNotMax();
-                    }
-                    else if (item.IsBackstagePasses())
-                    {
-                        item.Quality = 0;
-                    }
-                    else
+                    if (item.IsExpired())
                     {
                         item.DecreaseQualityIfNotMin();
                     }
