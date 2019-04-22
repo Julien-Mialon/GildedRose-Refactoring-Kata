@@ -15,6 +15,11 @@ namespace csharpcore
         {
             foreach (Item item in _items)
             {
+                if (item.IsLegendary())
+                {
+                    continue;
+                }
+
                 if (item.IsAgedBrie() || item.IsBackstagePasses())
                 {
                     item.IncreaseQualityIfNotMax();
@@ -32,10 +37,6 @@ namespace csharpcore
                         }
                     }
                 }
-                else if (item.IsLegendary())
-                {
-                    //do nothing
-                }
                 else
                 {
                     if (item.Quality > 0)
@@ -44,10 +45,8 @@ namespace csharpcore
                     }
                 }
 
-                if (!item.IsLegendary())
-                {
-                    item.SellIn = item.SellIn - 1;
-                }
+                item.SellIn = item.SellIn - 1;
+
 
                 if (item.IsExpired())
                 {
@@ -58,10 +57,6 @@ namespace csharpcore
                     else if (item.IsBackstagePasses())
                     {
                         item.Quality = item.Quality - item.Quality;
-                    }
-                    else if (item.IsLegendary())
-                    {
-                        //do nothing
                     }
                     else
                     {
