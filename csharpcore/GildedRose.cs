@@ -5,6 +5,7 @@ namespace csharpcore
     public class GildedRose
     {
         private readonly IList<Item> _items;
+
         public GildedRose(IList<Item> items)
         {
             _items = items;
@@ -16,27 +17,18 @@ namespace csharpcore
             {
                 if (item.IsAgedBrie() || item.IsBackstagePasses())
                 {
-                    if (item.IsNotMaxQuality())
+                    item.IncreaseQualityIfNotMax();
+
+                    if (item.IsBackstagePasses())
                     {
-                        item.Quality = item.Quality + 1;
-
-                        if (item.IsBackstagePasses())
+                        if (item.SellIn < 11)
                         {
-                            if (item.SellIn < 11)
-                            {
-                                if (item.IsNotMaxQuality())
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
+                            item.IncreaseQualityIfNotMax();
+                        }
 
-                            if (item.SellIn < 6)
-                            {
-                                if (item.IsNotMaxQuality())
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
+                        if (item.SellIn < 6)
+                        {
+                            item.IncreaseQualityIfNotMax();
                         }
                     }
                 }
@@ -77,10 +69,7 @@ namespace csharpcore
                     }
                     else
                     {
-                        if (item.IsNotMaxQuality())
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
+                        item.IncreaseQualityIfNotMax();
                     }
                 }
             }

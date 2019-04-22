@@ -18,5 +18,13 @@
         {
             return item.Quality < 50;
         }
+
+        public static void IncreaseQualityIfNotMax(this Item item)
+        {
+            if (item.IsNotMaxQuality())
+            {
+                item.Quality++;
+            }
+        }
     }
 }
